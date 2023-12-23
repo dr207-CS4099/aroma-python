@@ -117,8 +117,8 @@ public class ConvertPy {
 
       Method method = parser.getClass().getMethod(startSymbol);
       ParserRuleContext t = (ParserRuleContext) method.invoke(parser);
-      System.out.println(tokens.getText());
-      System.out.println(t.toStringTree(parser));
+      // System.out.println(tokens.getText());
+      // System.out.println(t.toStringTree(parser));
       parser.setBuildParseTree(false);
       setRuleNames(parser);
 
@@ -223,8 +223,9 @@ public class ConvertPy {
     // System.out.println("dumpMethod");
     // System.out.println(thisClassName);
     // System.out.println(thisRuleName);
-    if (thisClassName != null && thisRuleName.equals("function_def_raw")) {
-    // if(thisClassName != null){
+    // if (thisClassName != null && thisRuleName.equals("function_def_raw")) {
+    // we do not need the code to be in a class in python
+    if (thisRuleName.equals("function_def_raw")) {
       if (simpleTree.length() == 2) {
         try {
           simpleTree = simpleTree.getJSONArray(1);

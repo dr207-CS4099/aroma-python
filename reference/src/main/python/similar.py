@@ -106,6 +106,8 @@ class Config:
         self.THRESHOLD2 = 1.5
         self.TOP_N = 5
 
+        # python specific
+        self.REMOVE_INDENT_INFO = True
 
 class Vocab:
     def __init__(self):
@@ -161,8 +163,12 @@ def ast_to_code_aux(ast, token_list):
         for elem in ast:
             ast_to_code_aux(elem, token_list)
     elif isinstance(ast, dict):
+
         token_list.append(ast["leading"])
-        token_list.append(ast["token"])
+
+        # python specific, do not show the indent and dedent tokens
+        if not (config.REMOVE_INDENT_INFO and (ast['token'] == "<INDENT>" or ast['token'] == "<DEDENT>")):
+            token_list.append(ast["token"])
 
 
 def ast_to_code_collect_lines(ast, line_list):

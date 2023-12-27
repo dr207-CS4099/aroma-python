@@ -12,7 +12,7 @@
  class C {
      public void m(){
         String test;
-        test.toString("hello").toString("hello");
+        // test.toString("hello").toString("hello");
         System.out.println("hello");
         System.out.println("world");
      }

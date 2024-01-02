@@ -19,7 +19,7 @@ time mvn exec:java -Dexec.mainClass=ConvertPy -Dexec.args="file_input query_file
 
 
 # featurize asts
-time python3 src/main/python/similar.py -c jsrc.json -d tmpout
+# time python3 src/main/python/similar.py -c jsrc.json -d tmpout
 
 
 # run experiments assuming that featurization has already been done
@@ -27,4 +27,4 @@ time python3 src/main/python/similar.py -c jsrc.json -d tmpout
 # search code at index 83403 of the corpus
 # time python3 src/main/python/similar.py -d tmpout -i 83403
 # search using the query ast in query_file.json
-time python3 src/main/python/similar.py -d tmpout -f query_file.json
+# time python3 src/main/python/similar.py -d tmpout -f query_file.json

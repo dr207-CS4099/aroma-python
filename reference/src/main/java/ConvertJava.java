@@ -81,7 +81,7 @@ public class ConvertJava {
       Lexer lexer = new JavaLexer(new ANTLRFileStream(f));
       CommonTokenStream tokens = new CommonTokenStream(lexer);
       vocab = lexer.getVocabulary();
-
+      
       Parser parser = new JavaParser(tokens);
       parser.setErrorHandler(new BailErrorStrategy());
 

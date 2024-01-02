@@ -111,7 +111,7 @@ public class ConvertPy {
       Lexer lexer = new PythonLexer(new ANTLRFileStream(f));
       CommonTokenStream tokens = new CommonTokenStream(lexer);
       vocab = lexer.getVocabulary();
-
+      System.out.println("vocab is " + vocab.getDisplayName(1));
       Parser parser = new PythonParser(tokens);
       parser.setErrorHandler(new BailErrorStrategy());
 

@@ -21,8 +21,9 @@ import org.json.JSONObject;
 
 public class ConvertPy {
   private static final int MAX_DEPTH = 1000;
+  
   Vocabulary vocab;
-  // ArrayList<String> identifiersRuleNames =
+  // ArrayList<String> identifiersRuleNames =//
   //     new ArrayList<String>(
   //         Arrays.asList(
   //             "IDENTIFIER",
@@ -124,7 +125,7 @@ public class ConvertPy {
 
       t2 = System.currentTimeMillis();
 
-      JSONArray tree = getSerializedTree(t, tokens, 0);
+      JSONArray tree = getSerializedTree(t, tokens);
       if (tree.length() == 2) {
         tree = tree.getJSONArray(1);
       }
@@ -188,10 +189,9 @@ public class ConvertPy {
   private PrintWriter writer;
   private int stackDepth = 0;
 
-  private void setClassName(String thisRuleName, RuleContext t, int i, int posInOuter) {
+  private void setClassName(String thisRuleName, RuleContext t, int i) {
     // using the parent, as our class name is nested within NAME
     System.out.println("setting class");
-    RuleContext parentTree = t.getParent();
     if (thisRuleName.equals("class_def_raw") && i > 0) {
       ParseTree prev = t.getChild(i - 1);
       ParseTree curr = t.getChild(i);
@@ -251,7 +251,7 @@ public class ConvertPy {
     }
   }
 
-  private JSONArray getSerializedTree(RuleContext t, CommonTokenStream tokens, int posInOuter) {
+  private JSONArray getSerializedTree(RuleContext t, CommonTokenStream tokens) {
     stackDepth++;
     int n = t.getChildCount();
     boolean hasLeaf = false;
@@ -288,6 +288,7 @@ public class ConvertPy {
         if (!s.equals("<EOF>")) {
           Token thisToken = ((TerminalNodeImpl) tree).getSymbol();
           String ruleName = vocab.getDisplayName(thisToken.getType());
+          
           System.out.println("---------");
           System.out.println(thisRuleName);
           System.out.println("rule name is " + ruleName);
@@ -313,7 +314,7 @@ public class ConvertPy {
             isLeaf = true;
             sb.append("#");
             hasLeaf = true;
-            setClassName(thisRuleName, t, i, posInOuter);
+            setClassName(thisRuleName, t, i);
           } else {
             isLeaf = false;
             sb.append(s);
@@ -325,19 +326,23 @@ public class ConvertPy {
         }
       } else {
         // passing through i, as this is the position in the parent tree (used for class definitions etc)
-        JSONArray child = getSerializedTree((RuleContext) tree, tokens, i);
+        JSONArray child = getSerializedTree((RuleContext) tree, tokens);
         // System.out.println("child is " + child);
         if (child != null && child.length() > 0) {
           if (child.length() == 2) {
             simpleTree.put(child.get(1));
             sb.append(child.get(0));
             hasLeaf = hasLeaf || childHasLeaf;
+
           } else if (!childHasLeaf
+            // TODO do we need to check "{}" in python? 
               && !child.get(0).equals("{}")) { // see the while(m.find()){} query
             sb.append(child.get(0));
+           
             for (int j = 1; j < child.length(); j++) {
               simpleTree.put(child.get(j));
             }
+
           } else {
             sb.append("#");
             hasLeaf = true;

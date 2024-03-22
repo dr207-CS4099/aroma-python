@@ -11,31 +11,31 @@ class d:
 
 
 
-# class ReadData(GenericPE):
-#     def __init__(self):
-#         test._add_output("output")
+class ReadData(GenericPE):
+    def __init__(self):
+        test._add_output("output")
         
    
 
-# class e:
-#     def test():
-#         sum = 0
-#         for i in range(1,10):
-#             print("hello")
-#             for j in range(1, i):
-#                 print("world")
-#                 for k in range(1, j):
-#                     sum += j
-#         return sum
+class e:
+    def test():
+        sum = 0
+        for i in range(1,10):
+            print("hello")
+            for j in range(1, i):
+                print("world")
+                for k in range(1, j):
+                    sum += j
+        return sum
 
 
-# class f:
-#     def test_flat():
-#         sum = 0
-#         for i in range(1,10):
-#             print("hello")
-#         for j in range(1, i):
-#             print("world")
-#         for k in range(1, j):
-#             sum += j
-#         return sum
+class f:
+    def test_flat():
+        sum = 0
+        for i in range(1,10):
+            print("hello")
+        for j in range(1, i):
+            print("world")
+        for k in range(1, j):
+            sum += j
+        return sum

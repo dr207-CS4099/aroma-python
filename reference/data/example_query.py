@@ -1,20 +1,3 @@
-# class c:
-#     if(True and 1==1):
-#         print("hello")
-#         print("world")
-
-# class c:
-#     for line in article_file:
-#         fields = line.split("\t")
-#         location = fields[3]
-#         text = fields[4]
-#         self.count += 1
-#         return_article = {"text": text, "location": location}
-#         # print("TEXT %s", text)
-#         self.write("output", return_article)
-
-
-
 
 def test():
     sum = 0
